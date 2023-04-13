@@ -1,0 +1,20 @@
+.player {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    span {
+    font-size: 24px;
+    color: white;
+    }
+
+    img {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+    }
+}

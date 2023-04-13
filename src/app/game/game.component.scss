@@ -30,9 +30,20 @@
 }
 
 .pick-card {
+    z-index: 1;
     animation: pick-card-anim 1.25s ease-in-out;
     transform: scale(1.2) translate(175px, -200px) rotate(160deg);
 }
+
+.played-card {
+    transform: scale(1.2) translate(175px, -200px) rotate(160deg);
+}
+
+.player-pos {
+    position: absolute;
+    right: 0;
+}
+
 
 @keyframes pick-card-anim {
     0% {
