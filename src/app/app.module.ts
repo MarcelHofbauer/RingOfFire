@@ -14,7 +14,10 @@ import { AddPlayerComponent } from './add-player/add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
+import GameInfoComponent from './game-info/game-info.component';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import {MatSelectModule} from '@angular/material/select';
     StartScreenComponent,
     GameComponent,
     PlayerComponent,
-    AddPlayerComponent
+    AddPlayerComponent,
+    GameInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import {MatSelectModule} from '@angular/material/select';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
