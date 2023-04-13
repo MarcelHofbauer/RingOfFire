@@ -3,4 +3,21 @@
     width: 100vw;
     height: 100vh;
     max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-button {
+    position: absolute;
+    bottom: 30vh;
+
+    img {
+        width: 30vw;
+
+        &:hover {
+            filter: brightness(1.07);
+            cursor: pointer;
+        }
+    }
 }
