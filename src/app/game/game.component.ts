@@ -33,10 +33,9 @@ export class GameComponent implements OnInit {
 
       const docRef = doc(this.firestore, "games", id);
       const docSnap = getDoc(docRef);
-      let game = (await docSnap).data();
-      console.log(game);
+      let gameById = (await docSnap).data();
+      console.log(gameById);
       
-
       this.item$.subscribe((game: any) => {
         this.game.currentPlayer = game.currentPlayer;
         this.game.playedCards = game.playedCards;
