@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
-import { Firestore, collection, collectionData, doc, docData, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, onSnapshot, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { addDoc, getDoc } from '@firebase/firestore';
@@ -32,10 +32,12 @@ export class GameComponent implements OnInit {
       let id = params['id']
 
       const docRef = doc(this.firestore, "games", id);
-      const docSnap = getDoc(docRef);
-      let gameById = (await docSnap).data();
-      console.log(gameById);
-      
+      this.item$ = new Observable(observer => {
+        onSnapshot(docRef, (docSnapshot) => {
+          observer.next(docSnapshot.data());
+        });
+      });
+            
       this.item$.subscribe((game: any) => {
         this.game.currentPlayer = game.currentPlayer;
         this.game.playedCards = game.playedCards;
