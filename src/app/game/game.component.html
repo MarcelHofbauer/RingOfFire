@@ -12,8 +12,8 @@
             src="./assets/img/cards/card_cover.png" alt="">
 
         <!--pick card animation-->
-        <img *ngIf="pickCardAnimation" class="pick-card" style="right: 15px; bottom: 10px;"
-            src="./assets/img/cards/{{ currentCard }}.png" alt="">
+        <img *ngIf="game.pickCardAnimation" class="pick-card" style="right: 15px; bottom: 10px;"
+            src="./assets/img/cards/{{ game.currentCard }}.png" alt="">
 
         <!--picked card-->
         <img *ngFor="let card of game.playedCards" style="right: 15px; bottom: 10px;" class="played-card"
@@ -25,4 +25,4 @@
     <mat-icon>add</mat-icon>
 </button>
 
-<app-game-info [card]="currentCard"></app-game-info>
+<app-game-info [card]="game.currentCard"></app-game-info>

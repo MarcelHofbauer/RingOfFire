@@ -13,9 +13,7 @@ import { addDoc, getDoc } from '@firebase/firestore';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
   game: Game;
-  currentCard: string = '';
   firestore: Firestore = inject(Firestore);
   item$: Observable<any>;
   id: any;
@@ -44,8 +42,8 @@ export class GameComponent implements OnInit {
         this.game.playedCards = game.game.playedCards;
         this.game.players = game.game.players;
         this.game.stack = game.game.stack;
-        console.log('players', game.game.players);
-        console.log('game', game);
+        this.game.pickCardAnimation = game.game.pickCardAnimation;
+        this.game.currentCard = game.game.currentCard;
       })
     })
   }
@@ -63,14 +61,16 @@ export class GameComponent implements OnInit {
 
 
   getCard() { // % rest
-    if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop();
-      this.pickCardAnimation = true;
+    if (!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop();
+      this.game.pickCardAnimation = true;
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.saveGame();
       setTimeout(() => {
-        this.game.playedCards.push(this.currentCard);
-        this.pickCardAnimation = false;
+        this.game.playedCards.push(this.game.currentCard);
+        this.game.pickCardAnimation = false;
+        this.saveGame();
       }, 1250)
     }
   }
