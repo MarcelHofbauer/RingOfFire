@@ -6,6 +6,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+
+    .start-screen {
+        overflow: hidden;
+    }
 }
 
 .start-button {
@@ -19,5 +24,10 @@
             filter: brightness(1.07);
             cursor: pointer;
         }
+
+        @media (max-width: 960px) {
+            width: 50vw;
+        }
+    
     }
 }

@@ -7,15 +7,23 @@
     padding: 20px;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
+
     span {
     font-size: 24px;
     color: white;
+    padding-right: 10px;
     }
 
     img {
         height: 50px;
         width: 50px;
         object-fit: cover;
+    }
+
+    @media (max-width: 960px) {
+        width: 250px;
+        height: 70px;
+        word-break: break-all;
     }
 }
 
