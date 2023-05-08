@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPlayerComponent } from '../add-player/add-player.component';
-import { Firestore, collection, collectionData, doc, docData, onSnapshot, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, onSnapshot, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { addDoc, getDoc } from '@firebase/firestore';
@@ -23,21 +23,22 @@ export class GameComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {
     const game = collection(this.firestore, 'games');
-    this.item$ = collectionData(game);    
+    this.item$ = collectionData(game);
   }
 
+  //checks for new data and update them
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe(async (params) => {
-      let id = params['id']
+      this.id = params['id']
 
-      const docRef = doc(this.firestore, "games", id);
+      const docRef = doc(this.firestore, "games", this.id);
       this.item$ = new Observable(observer => {
         onSnapshot(docRef, (docSnapshot) => {
           observer.next(docSnapshot.data());
         });
       });
-            
+
       this.item$.subscribe((game: any) => {
         this.game.currentPlayer = game.game.currentPlayer;
         this.game.playedCards = game.game.playedCards;
@@ -49,9 +50,17 @@ export class GameComponent implements OnInit {
     })
   }
 
+
+  async saveGame() {
+    const itemCollection = collection(this.firestore, 'games');
+    const docRef = doc(itemCollection, this.id);
+    await updateDoc(docRef, { game: this.game.toJson() });
+  }
+
   newGame(): void {
     this.game = new Game();
   }
+
 
   getCard() { // % rest
     if (!this.pickCardAnimation) {
@@ -66,12 +75,14 @@ export class GameComponent implements OnInit {
     }
   }
 
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AddPlayerComponent);
 
     dialogRef.afterClosed().subscribe((name) => {
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.saveGame();
       }
     });
   }
