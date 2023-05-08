@@ -43,6 +43,7 @@ export class GameComponent implements OnInit {
         this.game.playedCards = game.playedCards;
         this.game.players = game.players;
         this.game.stack = game.stack;
+        console.log('players', game.game.players);
         console.log('game', game);
       })
     })
