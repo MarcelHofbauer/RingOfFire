@@ -39,10 +39,10 @@ export class GameComponent implements OnInit {
       });
             
       this.item$.subscribe((game: any) => {
-        this.game.currentPlayer = game.currentPlayer;
-        this.game.playedCards = game.playedCards;
-        this.game.players = game.players;
-        this.game.stack = game.stack;
+        this.game.currentPlayer = game.game.currentPlayer;
+        this.game.playedCards = game.game.playedCards;
+        this.game.players = game.game.players;
+        this.game.stack = game.game.stack;
         console.log('players', game.game.players);
         console.log('game', game);
       })
@@ -51,9 +51,6 @@ export class GameComponent implements OnInit {
 
   newGame(): void {
     this.game = new Game();
-    // const itemCollection = collection(this.firestore, 'games');
-    // setDoc(doc(itemCollection), {game: this.game.toJson()});
-
   }
 
   getCard() { // % rest
